@@ -1,16 +1,18 @@
 ======================================================
 COE67-XXX Operating Systems - Lab 01 Report
-Name: 
-Student ID: 
+Name: pakorn hnusawang
+Student ID: 67113282
 ======================================================
 
 1. Hardware Baseline:
-- OS Version:
-- Number of CPU Cores:
-- Total RAM:
+- OS Version:Linux 6.8.0-1052-azure
+- Number of CPU Cores:2
+- Total RAM:7.76 GB
 
 2. Observation (from htop during stress test):
-[Write your answer here]
+It utilized only one core at a time.
+htop, total CPU usage did not reach 100% across all cores. This happens because of Python's Global Interpreter Lock (GIL), which restricts Python to run on a single CPU core at a time during single-threaded execution.
+
 
 3. Analysis:
-[Write your answer here]
+Loading 500,000 images will exceed the system's 7.76 GB RAM. Knowing your RAM limit ensures you write code that loads data in smaller batches instead of causing an Out-Of-Memory (OOM) crash.
