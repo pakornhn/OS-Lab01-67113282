@@ -1,0 +1,33 @@
+COE67-222 Operating Systems Lab 07 Report
+Name: pakorn hnusawang
+Student ID: 67113282
+
+1. The Convoy Effect (Phase 2):
+In the FCFS output of cpu_scheduler.py, what is the "Convoy
+Effect"? How did the presence of Process P1 affect the waiting
+times of P2 and P3?
+
+The Convoy Effect occurs in FCFS scheduling when short processes are delayed in the ready queue behind a large CPU-bound process. In the simulation, Process P1 has a large burst time of 10 units, holding the CPU and forcing P2 (burst time 2) and P3 (burst time 3) to wait for 10 and 12 units, respectively. This resulted in a high FCFS average waiting time of 7.33 units, whereas Round Robin reduced it to 4.33 units by allowing P2 and P3 to run earlier.
+
+2. Choosing the Time Quantum:
+In Round Robin, the Time Quantum is critical.
+What happens if the OS sets the Time Quantum extremely large
+(e.g., Quantum = 100)? Which algorithm does RR start to behave
+like?
+
+If the Time Quantum is extremely large (e.g., Quantum = 100), every process finishes its CPU burst in a single slice without being preempted. As a result, Round Robin degenerates and behaves identically to First-Come, First-Served (FCFS).
+
+What happens if the OS sets the Time Quantum extremely small
+(e.g., Quantum = 0.0001)? (Hint: Think about Context Switching
+overhead).
+
+If the Time Quantum is extremely small (e.g., Quantum = 0.0001), the OS causes excessive Context Switching overhead. The CPU spends more time saving and restoring process states than executing actual tasks, severely degrading overall system throughput.
+
+3. AI Context:
+In Phase 3, we used a Round Robin approach for generating tokens
+in an LLM. Explain why iteration-level Round Robin scheduling
+prevents long user queries from starving short queries, and how
+it improves perceived latency (Time To First Token / TTFT) for
+interactive AI applications.
+
+Iteration-level Round Robin scheduling (Continuous Batching) processes request generation token-by-token (Time Quantum = 1 Token). This ensures that short user queries (e.g., User_B_Math needing 2 tokens) complete rapidly without being blocked by long-running queries (e.g., User_A_Essay needing 10 tokens). It significantly improves perceived latency by dramatically reducing Time To First Token (TTFT), allowing users to see immediate initial responses in interactive AI applications.

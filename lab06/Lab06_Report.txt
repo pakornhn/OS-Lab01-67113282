@@ -1,0 +1,26 @@
+COE67-222 Operating Systems
+Name: pakron hnusawang
+Student ID: 67113282
+
+Lab 06 Report
+
+1. FIFO vs LRU (Phase 2):
+In the page_replacement.py script, why did the LRU algorithm 
+perform better (have fewer page faults) than the FIFO algorithm 
+for the given reference string? Explain how LRU decides which 
+page to evict.
+Answer:
+LRU performed better with 7 page faults compared to FIFO's 9 page faults because it takes advantage of temporal locality by tracking page access history. Whenever a page is accessed, LRU updates its position so it is recognized as the most recently used. When a page fault occurs and RAM is full, LRU decides to evict the page that has not been accessed for the longest time (Least Recently Used). In contrast, FIFO blindly evicts pages based solely on their arrival order, often removing pages that the program needs to use again immediately.
+2. Understanding Thrashing (Phase 3):
+Based on your observation of ai_thrashing.py, define 
+"Thrashing" in your own words. Why is the processing time 
+significantly higher in Scenario 2?
+Answer:
+Thrashing is a critical system state where the Operating System spends more time performing page swapping (reading and writing data between RAM and Disk) than actually executing process instructions. The processing time is significantly higher in Scenario 2 because Disk/Storage I/O operations are astronomically slower than direct physical RAM memory access.
+3. AI Engineering Decision:
+If you are training an AI model and your system begins to thrash 
+because the RAM is full, lowering the batch_size in your Python 
+code is a common solution. How does lowering the 'batch_size' 
+help the Operating System resolve the Thrashing problem?
+Answer:
+Lowering the batch_size reduces the volume of tensor data, activations, and gradients stored in memory during each training iteration. This shrinks the working set size so that it fits completely within the physical RAM capacity. Consequently, page faults drop to near zero, stopping the OS from swapping data to the disk and eliminating the Thrashing condition.

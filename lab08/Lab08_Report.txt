@@ -1,0 +1,25 @@
+COE67-222 Operating Systems Lab 08 Report
+Name: pakorn hnusawang
+Student ID: 67113282
+
+===
+1. Disk Scheduling (Phase 2):
+Looking at the output of disk_scheduler.py, why did the SCAN 
+algorithm result in a significantly lower "Total Head Movement" 
+compared to FCFS? Explain the logic behind the Elevator behavior.
+
+FCFS processes requests strictly in arrival order, causing the disk head to jump back and forth across tracks ($53 \rightarrow 98 \rightarrow 183 \rightarrow 37 \dots$), resulting in a high total movement of 640 cylinders. SCAN uses elevator logic by sorting requests and sweeping the head continuously in one direction (moving up to track 199 before reversing to service tracks 37 and 14). This linear sweeping eliminates erratic movements, drastically reducing total head movement to 331 cylinders.
+
+2. I/O Bound Concept:
+If an Operating System is described as being "I/O Bound" during a 
+task, what does that actually mean for the CPU? Is the CPU at 
+100% usage or is it mostly idle? Why?
+
+An "I/O Bound" state means execution speed is bottlenecked by slow storage read/write operations rather than CPU processing power. The CPU is mostly idle (low usage) because CPU operations complete in nanoseconds, whereas disk reads take milliseconds, forcing the process to wait in an "I/O Wait" state for data to arrive.
+
+3. AI Industry Connection (Phase 3):
+Explain why storing an AI image dataset as 1,000,000 separate '.jpg' files causes high 
+I/O overhead and GPU starvation compared to packing them into a single sequential 
+binary format (e.g., TFRecord, WebDataset, or HDF5).
+
+Storing $1,000,000$ individual files creates massive I/O overhead due to repeated system calls (open/read/close), inode lookups, and random disk access ($0.0305\text{ seconds}$). This delays data loading and leaves the GPU idle at 0% usage (GPU starvation). Packing the dataset into a single binary format enables sequential I/O with a single open call and continuous chunk reads ($0.0031\text{ seconds}$), feeding data rapidly to keep the GPU fully utilized. 

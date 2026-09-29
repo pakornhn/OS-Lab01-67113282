@@ -1,0 +1,26 @@
+COE67-222 Operating Systems Lab 10 Report (Final)
+Name: pakorn hnusawang
+Student ID: 67113282
+
+==================================================
+
+1. The Role of the Operating System:
+In this mini-project, our Python script simulated the major responsibilities of an Operating System.
+
+- File System & Permissions (Lab 9):
+Simulated by `if not os.path.exists(dataset_path):`. Workload D failed instantly because it attempted to access "secret_keys.txt", which did not exist or failed permission checks. The OS blocked it before allocating any RAM or CPU/GPU resources.
+
+- Memory Management (Labs 5/6):
+Simulated by the `while True:` loop checking `if self.available_ram_gb >= req_ram:` with `self.ram_lock`. This prevented Thrashing and Out-Of-Memory (OOM) crashes by holding incoming jobs in a wait state until sufficient physical RAM was released by completed processes.
+
+- Concurrency & Deadlocks (Labs 3/4):
+Simulated by `sorted_gpus = sorted(req_gpus)`. Sorting GPU IDs before calling `.acquire()` enforced a global Resource Hierarchy ordering. This eliminated the Circular Wait condition, preventing deadlocks when multiple jobs requested overlapping GPU sets.
+
+2. Hardware Utilization:
+Workload A (40GB RAM, GPUs 0,1,2), Workload B (16GB RAM, 0 GPUs), and Workload C (2GB RAM, GPU 3) ran concurrently because their resource demands fit within the cluster's total capacity (64GB RAM, 4 GPUs). 
+- Workload B required no GPUs, so it ran on the CPU alongside Workload A without GPU contention.
+- Workload C utilized the remaining 8GB RAM and the unused GPU 3 while Workload A held GPUs 0, 1, and 2.
+Because total RAM (40 + 16 + 2 = 58GB <= 64GB) and GPU allocations were mutually disjoint, the OS thread scheduler executed all three tasks simultaneously without blocking or starving each other.
+
+3. Course Reflection (AI Engineering Context):
+Understanding Operating System fundamentals gives MLOps engineers a critical advantage over developers who only write standard Python or PyTorch scripts. Basic programmers often treat hardware as an abstract black box, leading to Out-Of-Memory (OOM) crashes, GPU lock deadlocks, and severe I/O bottlenecks in production. With OS knowledge—such as process queue scheduling, memory allocation, lock hierarchies, and POSIX file security—an MLOps engineer can properly configure cluster orchestrators (e.g., Kubernetes, Slurm), optimize GPU resource utilization, protect high-value model weights, and build resilient, high-throughput AI pipelines.

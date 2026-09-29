@@ -1,0 +1,30 @@
+COE67-222 Operating Systems Lab 09 Report
+Name: pakorn hnusawang
+Student ID: 67113282
+
+1. Inodes and Metadata:
+In the inode_inspector.py script, we printed the "Inode
+Number". If you rename the file using the Linux mv command,
+will the Inode Number change? Why or why not? (Hint: Think about
+how the OS separates the file name from the actual data).
+
+No, the Inode number will not change. The Operating System separates the file name from the actual data. Renaming a file using mv only updates the name pointer in the directory entry, while the underlying Inode number and physical data blocks remain unchanged.
+
+2. POSIX Permissions:
+If you want to set a file's permission so that the Owner has
+Read/Write/Execute (7), the Group has Read/Execute (5), and
+Others have absolutely no access (0), what would be the 3-digit
+octal number you pass into os.chmod() ?
+
+750 (or 0o750 in Python).   
+Owner: Read/Write/Execute ($4+2+1 = 7$)   
+Group: Read/Execute ($4+0+1 = 5$)   
+Others: No access ($0+0+0 = 0$)  
+
+3. The AI Context:
+Why is it safer to rely on Operating System file permissions (like 'os.chmod(00444)') to
+protect production model weights rather than relying solely on application-level logic or
+Python try-except blocks?
+
+OS-level permissions are enforced directly by the Linux Kernel. Application-level logic or try-except blocks can be bypassed by buggy code, external scripts, or different runtime environments.
+The kernel acts as an unbypassable gatekeeper, blocking unauthorized write operations at the lowest level regardless of how the application runs.   
