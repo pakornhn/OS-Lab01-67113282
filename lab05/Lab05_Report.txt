@@ -1,0 +1,19 @@
+=========================================
+COE67-222 Operating Systems Lab 05 Report
+Name:
+Student ID:
+=========================================
+
+1. Address Translation Math (Phase 3):  
+Assume an OS has a PAGE_SIZE of 4096 bytes.
+If an AI model requests data at Logical Address 10000, calculate:
+The Page Number: [____]
+The Offset: [____]
+(Show your calculation steps briefly).
+
+2. Physical Memory Fragmentation:
+In our page_table_sim.py, Page 0 was stored in Frame 12, and Page 1 was in Frame 45.
+Why does the OS store continuous logical data in scattered/fragmented physical frames instead of putting them right next to each other? What problem does this solve?
+
+3. The AI Context (mmap):
+In Phase 4, we mapped a 50MB file to memory, but the physical RAM usage did not increase significantly. Explain how the OS Virtual Memory and Page Table achieve this, and what actually happens at the OS level when index 25,000,000 is accessed.
