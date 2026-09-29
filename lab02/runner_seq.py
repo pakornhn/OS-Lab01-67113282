@@ -3,7 +3,7 @@ import time
 from task import process_image
 
 def main():
-    num_images = 16  # เราต้องการประมวลผล 16 รูป
+    num_images = 16 
     
     print(f"--- Starting Sequential Processing for {num_images} images ---")
     start_time = time.time()

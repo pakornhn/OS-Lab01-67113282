@@ -13,13 +13,11 @@ def main():
     print(f"--- Starting Multiprocessing for {num_images} images ---")
     start_time = time.time()
     
-    # สร้าง 16 OS processes แยกกัน
     for i in range(num_images):
         p = multiprocessing.Process(target=process_worker, args=(i,))
         processes.append(p)
         p.start()
-        
-    # รอให้ทุก process ทำงานเสร็จ
+
     for p in processes:
         p.join()
         

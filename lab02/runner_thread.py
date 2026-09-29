@@ -13,13 +13,11 @@ def main():
     print(f"--- Starting Multithreading for {num_images} images ---")
     start_time = time.time()
     
-    # สร้าง 16 threads
     for i in range(num_images):
         t = threading.Thread(target=thread_worker, args=(i,))
         threads.append(t)
         t.start()
-        
-    # รอให้ทุก thread ทำงานเสร็จ
+
     for t in threads:
         t.join()
         
