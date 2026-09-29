@@ -1,19 +1,25 @@
 =========================================
 COE67-222 Operating Systems Lab 05 Report
-Name:
-Student ID:
+Name:pakorn hnusawang
+Student ID:67113282
 =========================================
 
 1. Address Translation Math (Phase 3):  
 Assume an OS has a PAGE_SIZE of 4096 bytes.
 If an AI model requests data at Logical Address 10000, calculate:
-The Page Number: [____]
-The Offset: [____]
+The Page Number: [_2_]
+The Offset: [__1808__]
 (Show your calculation steps briefly).
+Page Number = Logical Address // PAGE_SIZE = 10000 // 4096 = 2
+Offset = Logical Address % PAGE_SIZE = 10000 % 4096 = 1808
 
 2. Physical Memory Fragmentation:
 In our page_table_sim.py, Page 0 was stored in Frame 12, and Page 1 was in Frame 45.
 Why does the OS store continuous logical data in scattered/fragmented physical frames instead of putting them right next to each other? What problem does this solve?
+The OS stores logically continuous data in scattered physical frames to solve the problem of External Fragmentation (non-contiguous free space in memory).
+As memory is allocated and freed by various programs over time, available RAM becomes fragmented into small, scattered blocks.
+The Paging system allows the OS to divide a program's data into small units (Pages) and place them into any available free Frames in the RAM immediately. This eliminates the need to find a large, contiguous block of free memory, thereby maximizing memory utilization efficiency.
 
 3. The AI Context (mmap):
 In Phase 4, we mapped a 50MB file to memory, but the physical RAM usage did not increase significantly. Explain how the OS Virtual Memory and Page Table achieve this, and what actually happens at the OS level when index 25,000,000 is accessed.
+The mmap function works by mapping the 50MB file into Virtual Memory. The OS simply creates entries in the Page Table that point to the file's location on the hard drive, rather than loading the entire file into Physical RAM. This is demonstrated by the minimal increase in Physical RAM usage, which only went up from 12.25 MB to 12.32 MB.   When the code accesses the value at index 25,000,000, a Page Fault occurs because that specific data is not yet present in the RAM.   At the OS level, when a Page Fault is triggered, the system temporarily pauses the program. It fetches only the necessary data from the disk (a 4KB Page) and loads it into an available Physical RAM frame. The OS then updates the Page Table to point to the correct new location and resumes the program's execution. This approach allows programs to manage files significantly larger than the available physical RAM without crashing the system.
